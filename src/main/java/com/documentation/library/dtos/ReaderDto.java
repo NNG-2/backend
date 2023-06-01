@@ -15,7 +15,18 @@ public class ReaderDto {
 
     private String name;
 
+    private String address;
+
+    private String phoneNumber;
+
+    private String email;
+
+    private String password;
+
+    private Double balance;
+
     private Long categoryId;
 
     private Long libraryId;
+
 }
