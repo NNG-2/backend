@@ -29,7 +29,7 @@ public class ReaderController {
     }
 
     @GetMapping("/testget")
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("isAuthenticated()")
     public String test() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
