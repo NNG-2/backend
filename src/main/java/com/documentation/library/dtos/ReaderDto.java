@@ -1,15 +1,9 @@
 package com.documentation.library.dtos;
 
-import com.documentation.library.domains.Category;
-import com.documentation.library.domains.Library;
-import com.documentation.library.domains.Rent;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,19 +15,7 @@ public class ReaderDto {
 
     private String name;
 
-    private String address;
+    private Long categoryId;
 
-    private String phoneNumber;
-
-    private String email;
-
-    private String password;
-
-    private Double balance;
-
-    private Category category;
-
-    private Library library;
-
-    private List<Rent> rents;
+    private Long libraryId;
 }
