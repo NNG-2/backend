@@ -1,9 +1,11 @@
 package com.documentation.library.domains;
 
+import com.documentation.library.dtos.ReaderDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Entity
@@ -51,5 +53,12 @@ public class Reader {
     @OneToMany(mappedBy = "reader")
     private List<Rent> rents;
 
-
+    public Reader(ReaderDto readerDto) {
+        this.name = readerDto.getName();
+        this.address = readerDto.getAddress();
+        this.phoneNumber = readerDto.getPhoneNumber();
+        this.email = readerDto.getEmail();
+        this.password = readerDto.getPassword();
+        this.balance = 0.0;
+    }
 }
