@@ -1,9 +1,9 @@
 package com.documentation.library.controllers;
 
-import com.documentation.library.domains.Reader;
-import com.documentation.library.dtos.ReaderDto;
-import com.documentation.library.mappers.ReaderMapper;
-import com.documentation.library.services.ReaderService;
+import com.documentation.library.domains.User;
+import com.documentation.library.dtos.UserDto;
+import com.documentation.library.mappers.UserMapper;
+import com.documentation.library.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,18 +12,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
-public class ReaderController {
+@RequestMapping("/api")
+public class UserController {
     @Autowired
-    private ReaderService readerService;
+    private UserService userService;
 
     @Autowired
-    private ReaderMapper readerMapper;
+    private UserMapper userMapper;
 
     @PostMapping("/registration")
     @PreAuthorize("isAnonymous()")
-    public ResponseEntity<Reader> register(@RequestBody ReaderDto readerDto) {
-        return ResponseEntity.ok(readerService.createReader(readerDto));
+    public ResponseEntity<User> register(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.createUser(userDto));
     }
 
     @GetMapping("/testget")

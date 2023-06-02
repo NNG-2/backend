@@ -1,6 +1,6 @@
 package com.documentation.library.domains;
 
-import com.documentation.library.dtos.ReaderDto;
+import com.documentation.library.dtos.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "reader")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reader {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,15 +50,15 @@ public class Reader {
     @JoinColumn(name = "library_id", referencedColumnName = "id")
     private Library library;
 
-    @OneToMany(mappedBy = "reader")
+    @OneToMany(mappedBy = "user")
     private List<Rent> rents;
 
-    public Reader(ReaderDto readerDto) {
-        this.name = readerDto.getName();
-        this.address = readerDto.getAddress();
-        this.phoneNumber = readerDto.getPhoneNumber();
-        this.email = readerDto.getEmail();
-        this.password = readerDto.getPassword();
+    public User(UserDto userDto) {
+        this.name = userDto.getName();
+        this.address = userDto.getAddress();
+        this.phoneNumber = userDto.getPhoneNumber();
+        this.email = userDto.getEmail();
+        this.password = userDto.getPassword();
         this.balance = 0.0;
     }
 }

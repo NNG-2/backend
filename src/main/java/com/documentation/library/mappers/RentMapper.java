@@ -8,19 +8,19 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {BookMapper.class, ReaderMapper.class})
+@Mapper(componentModel = "spring", uses = {BookMapper.class, UserMapper.class})
 public interface RentMapper {
     RentMapper INSTANCE = Mappers.getMapper(RentMapper.class);
 
     @Mapping(source = "book.id", target = "bookId")
-    @Mapping(source = "reader.id", target = "readerId")
+    @Mapping(source = "user.id", target = "userId")
     RentDto toDto(Rent entity);
 
     @InheritInverseConfiguration
     Rent toEntity(RentDto dto);
 
     @Mapping(source = "book.id", target = "bookId")
-    @Mapping(source = "reader.id", target = "readerId")
+    @Mapping(source = "user.id", target = "userId")
     List<RentDto> toDtoList(List<Rent> entities);
 
     @InheritInverseConfiguration

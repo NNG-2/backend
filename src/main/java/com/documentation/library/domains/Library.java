@@ -28,5 +28,5 @@ public class Library {
     private List<Book> books;
 
     @OneToMany(mappedBy = "library")
-    private List<Reader> readers;
+    private List<User> users;
 }

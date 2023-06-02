@@ -20,5 +20,5 @@ public class RentDto {
 
     private Long bookId;
 
-    private Long readerId;
+    private Long userId;
 }
