@@ -1,4 +1,4 @@
-package com.documentation.library.dtos;
+package com.documentation.library.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GenreDto {
+public class LibraryDto {
 
     private Long id;
 

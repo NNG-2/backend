@@ -1,4 +1,4 @@
-package com.documentation.library.domains;
+package com.documentation.library.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "genre")
+@Table(name = "category")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Genre {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +21,6 @@ public class Genre {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "genre")
-    private List<Book> books;
+    @OneToMany(mappedBy = "category")
+    private List<User> users;
 }

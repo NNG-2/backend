@@ -1,8 +1,8 @@
-package com.documentation.library.services;
+package com.documentation.library.service;
 
-import com.documentation.library.domains.User;
-import com.documentation.library.dtos.UserDto;
-import com.documentation.library.repositories.UserRepository;
+import com.documentation.library.domain.User;
+import com.documentation.library.dto.UserDto;
+import com.documentation.library.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
