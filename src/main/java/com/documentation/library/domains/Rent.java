@@ -30,7 +30,7 @@ public class Rent {
     private Book book;
 
     @ManyToOne
-    @JoinColumn(name = "reader_id", referencedColumnName = "id")
-    private Reader reader;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
 }

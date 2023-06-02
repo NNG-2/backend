@@ -37,7 +37,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests((requests)-> requests
-                .requestMatchers(new AntPathRequestMatcher("/registration")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/api/registration")).permitAll()
                 .anyRequest().authenticated()).httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }
