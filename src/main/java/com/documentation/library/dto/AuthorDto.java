@@ -1,4 +1,4 @@
-package com.documentation.library.dtos;
+package com.documentation.library.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,11 +10,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LibraryDto {
+public class AuthorDto {
 
     private Long id;
 
     private String name;
+
+    private String surname;
 
     private List<BookDto> books;
 }

@@ -1,6 +1,6 @@
-package com.documentation.library.repositories;
+package com.documentation.library.repository;
 
-import com.documentation.library.domains.User;
+import com.documentation.library.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

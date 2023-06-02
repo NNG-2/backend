@@ -1,7 +1,7 @@
 package com.documentation.library.security;
 
-import com.documentation.library.domains.User;
-import com.documentation.library.repositories.UserRepository;
+import com.documentation.library.domain.User;
+import com.documentation.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

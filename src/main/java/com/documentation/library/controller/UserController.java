@@ -1,9 +1,9 @@
-package com.documentation.library.controllers;
+package com.documentation.library.controller;
 
-import com.documentation.library.domains.User;
-import com.documentation.library.dtos.UserDto;
-import com.documentation.library.mappers.UserMapper;
-import com.documentation.library.services.UserService;
+import com.documentation.library.domain.User;
+import com.documentation.library.dto.UserDto;
+import com.documentation.library.mapper.UserMapper;
+import com.documentation.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

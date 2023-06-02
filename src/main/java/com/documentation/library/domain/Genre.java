@@ -1,17 +1,18 @@
-package com.documentation.library.domains;
+package com.documentation.library.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Entity
-@Table(name = "library")
+@Table(name = "genre")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Library {
+public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +21,6 @@ public class Library {
     @Column(name = "name")
     private String name;
 
-    @Basic
-    @Column(name = "balance")
-    private Double balance;
-
-    @OneToMany(mappedBy = "library")
+    @OneToMany(mappedBy = "genre")
     private List<Book> books;
-
-    @OneToMany(mappedBy = "library")
-    private List<User> users;
 }

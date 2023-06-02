@@ -1,6 +1,6 @@
-package com.documentation.library.domains;
+package com.documentation.library.domain;
 
-import com.documentation.library.dtos.UserDto;
+import com.documentation.library.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
