@@ -1,7 +1,7 @@
-package com.documentation.library.mappers;
+package com.documentation.library.mapper;
 
-import com.documentation.library.domains.Author;
-import com.documentation.library.dtos.AuthorDto;
+import com.documentation.library.domain.Author;
+import com.documentation.library.dto.AuthorDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

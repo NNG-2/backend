@@ -1,7 +1,7 @@
-package com.documentation.library.mappers;
+package com.documentation.library.mapper;
 
-import com.documentation.library.domains.Genre;
-import com.documentation.library.dtos.GenreDto;
+import com.documentation.library.domain.Genre;
+import com.documentation.library.dto.GenreDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

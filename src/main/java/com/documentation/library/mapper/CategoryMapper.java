@@ -1,7 +1,7 @@
-package com.documentation.library.mappers;
+package com.documentation.library.mapper;
 
-import com.documentation.library.domains.Category;
-import com.documentation.library.dtos.CategoryDto;
+import com.documentation.library.domain.Category;
+import com.documentation.library.dto.CategoryDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

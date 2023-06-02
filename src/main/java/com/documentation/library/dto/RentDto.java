@@ -1,4 +1,4 @@
-package com.documentation.library.dtos;
+package com.documentation.library.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +20,5 @@ public class RentDto {
 
     private Long bookId;
 
-    private Long readerId;
+    private Long userId;
 }
