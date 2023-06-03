@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: Library CI
 
 on:
   push:
@@ -27,6 +27,6 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v3
       with:
-        name: jar
+        name: library.jar
         path: target/library-*.jar
         retention-days: 7
