@@ -2,6 +2,7 @@ package org.nng.swdoc.library.service;
 
 import org.nng.swdoc.library.domain.User;
 import org.nng.swdoc.library.dto.InputUserDto;
+import org.nng.swdoc.library.mapper.UserMapper;
 import org.nng.swdoc.library.repository.UserRepository;
 import org.nng.swdoc.library.security.Encoder;
 import org.slf4j.Logger;
@@ -17,9 +18,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public User createUser(InputUserDto inputUserDto) {
         try {
-            User user = new User(inputUserDto);
+//            User user = new User(inputUserDto);
+            User user = userMapper.toEntity(inputUserDto);
+            System.out.println(user.toString());
             user.setPassword(Encoder.getInstance().encode(user.getPassword()));
             logger.info("User successfully registered");
             return userRepository.save(user);

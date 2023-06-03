@@ -54,20 +54,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Rent> rents;
 
-    public User(InputUserDto inputUserDto) {
-        this.name = inputUserDto.getName();
-        this.address = inputUserDto.getAddress();
-        this.phoneNumber = inputUserDto.getPhoneNumber();
-        this.email = inputUserDto.getEmail();
-        this.password = inputUserDto.getPassword();
-        this.balance = 0.0;
-    }
-
-    public OutputUserDto toDto() {
-        return new OutputUserDto(
-                id, name, address, phoneNumber, email, balance,
-                category == null ? null : category.getName(),
-                library == null ? null : library.getName()
-        );
-    }
 }
