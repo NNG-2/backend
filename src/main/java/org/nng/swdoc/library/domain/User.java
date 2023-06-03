@@ -66,8 +66,8 @@ public class User {
     public OutputUserDto toDto() {
         return new OutputUserDto(
                 id, name, address, phoneNumber, email, balance,
-                category == null ? 0 : category.getId(),
-                library == null ? 0 : library.getId()
+                category == null ? null : category.getName(),
+                library == null ? null : library.getName()
         );
     }
 }

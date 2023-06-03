@@ -23,8 +23,8 @@ public class OutputUserDto {
 
     private Double balance;
 
-    private Long categoryId;
+    private String category;
 
-    private Long libraryId;
+    private String library;
 
 }

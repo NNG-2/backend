@@ -1,5 +1,6 @@
 package org.nng.swdoc.library.mapper;
 
+import org.mapstruct.MappingTarget;
 import org.nng.swdoc.library.domain.Rent;
 import org.nng.swdoc.library.dto.RentDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -26,4 +27,8 @@ public interface RentMapper {
 
     @InheritInverseConfiguration
     List<Rent> toEntityList(List<RentDto> dtoList);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "issueDate", ignore = true)
+    void updateRentFromDto(RentDto dto, @MappingTarget Rent entity);
 }
