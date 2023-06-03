@@ -1,10 +1,11 @@
 package org.nng.swdoc.library.domain;
 
-import org.nng.swdoc.library.dto.UserDto;
+import org.nng.swdoc.library.dto.InputUserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.nng.swdoc.library.dto.OutputUserDto;
 
 import java.util.List;
 
@@ -53,12 +54,20 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Rent> rents;
 
-    public User(UserDto userDto) {
-        this.name = userDto.getName();
-        this.address = userDto.getAddress();
-        this.phoneNumber = userDto.getPhoneNumber();
-        this.email = userDto.getEmail();
-        this.password = userDto.getPassword();
+    public User(InputUserDto inputUserDto) {
+        this.name = inputUserDto.getName();
+        this.address = inputUserDto.getAddress();
+        this.phoneNumber = inputUserDto.getPhoneNumber();
+        this.email = inputUserDto.getEmail();
+        this.password = inputUserDto.getPassword();
         this.balance = 0.0;
+    }
+
+    public OutputUserDto toDto() {
+        return new OutputUserDto(
+                id, name, address, phoneNumber, email, balance,
+                category == null ? 0 : category.getId(),
+                library == null ? 0 : library.getId()
+        );
     }
 }
