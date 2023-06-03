@@ -1,11 +1,9 @@
 package org.nng.swdoc.library.domain;
 
-import org.nng.swdoc.library.dto.InputUserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.nng.swdoc.library.dto.OutputUserDto;
 
 import java.util.List;
 
