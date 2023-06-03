@@ -23,48 +23,36 @@ public class BookService {
     private BookMapper bookMapper;
 
     public BookDto createBook(BookDto bookDto) {
-        logger.info("Creating book: {}", bookDto);
-        Book book = bookMapper.toEntity(bookDto);
-        Book savedBook = bookRepository.save(book);
-        BookDto savedBookDto = bookMapper.toDto(savedBook);
-        logger.info("Book created: {}", savedBookDto);
-        return savedBookDto;
+        Book book = bookRepository.save(bookMapper.toEntity(bookDto));
+        logger.info("CRATE book: {}", book);
+        return bookMapper.toDto(book);
     }
 
     public BookDto getBookById(Long id) {
-        logger.info("Getting book with id: {}", id);
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        BookDto bookDto = bookMapper.toDto(book);
-        logger.info("Retrieved book: {}", bookDto);
-        return bookDto;
+        logger.info("GET book: {}", book);
+        return bookMapper.toDto(book);
     }
 
     public List<BookDto> getAllBooks() {
-        logger.info("Getting all books");
         List<Book> books = bookRepository.findAll();
-        List<BookDto> bookDtos = bookMapper.toDtoList(books);
-        logger.info("Retrieved {} books", bookDtos.size());
-        return bookDtos;
+        logger.info("GET books: {}", books.size());
+        return bookMapper.toDtoList(books);
     }
 
     public BookDto updateBook(Long id, BookDto bookDto) {
-        logger.info("Updating book with id: {}", id);
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
         bookMapper.updateBookFromDto(bookDto, book);
-        Book updatedBook = bookRepository.save(book);
-        BookDto updatedBookDto = bookMapper.toDto(updatedBook);
-        logger.info("Book updated: {}", updatedBookDto);
-        return updatedBookDto;
+        book = bookRepository.save(book);
+        logger.info("UPDATE book: {}", book);
+        return bookMapper.toDto(book);
     }
 
     public void deleteBook(Long id) {
-        logger.info("Deleting book with id: {}", id);
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        bookRepository.delete(book);
-        logger.info("Book deleted");
+        bookRepository.deleteById(id);
+        logger.info("DELETE book: {}", id);
     }
 }
 

@@ -24,51 +24,36 @@ public class AuthorService {
     private AuthorMapper authorMapper;
 
     public AuthorDto createAuthor(AuthorDto authorDto) {
-        logger.info("Creating author: {}", authorDto);
-        Author author = authorMapper.toEntity(authorDto);
-        Author savedAuthor = authorRepository.save(author);
-        AuthorDto savedAuthorDto = authorMapper.toDto(savedAuthor);
-        logger.info("Author created: {}", savedAuthorDto);
-        return savedAuthorDto;
+        Author author = authorRepository.save(authorMapper.toEntity(authorDto));
+        logger.info("CREATE author: {}", author);
+        return authorMapper.toDto(author);
     }
 
     public AuthorDto getAuthorById(Long id) {
-        logger.info("Getting author with id: {}", id);
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Author not found with id: " + id));
-        AuthorDto authorDto = authorMapper.toDto(author);
-        logger.info("Retrieved author: {}", authorDto);
-        return authorDto;
+        logger.info("GET author: {}", author);
+        return authorMapper.toDto(author);
     }
 
     public List<AuthorDto> getAllAuthors() {
-        logger.info("Getting all authors");
         List<Author> authors = authorRepository.findAll();
-        List<AuthorDto> authorDtos = authors.stream()
-                .map(authorMapper::toDto)
-                .collect(Collectors.toList());
-        logger.info("Retrieved {} authors", authorDtos.size());
-        return authorDtos;
+        logger.info("GET authors: {}", authors.size());
+        return authorMapper.toDtoList(authors);
     }
 
     public AuthorDto updateAuthor(Long id, AuthorDto authorDto) {
-        logger.info("Updating author with id: {}", id);
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Author not found with id: " + id));
-        author.setName(authorDto.getName());
-        author.setSurname(authorDto.getSurname());
-        Author updatedAuthor = authorRepository.save(author);
-        AuthorDto updatedAuthorDto = authorMapper.toDto(updatedAuthor);
-        logger.info("Author updated: {}", updatedAuthorDto);
-        return updatedAuthorDto;
+        authorMapper.updateAuthorFromDto(authorDto, author);
+        author = authorRepository.save(author);
+        logger.info("UPDATE author: {}", author);
+        return authorMapper.toDto(author);
     }
 
     public void deleteAuthor(Long id) {
-        logger.info("Deleting author with id: {}", id);
-        Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Author not found with id: " + id));
-        authorRepository.delete(author);
-        logger.info("Author deleted");
+        authorRepository.deleteById(id);
+        logger.info("DELETE author: {}", id);
     }
 }
 

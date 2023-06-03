@@ -23,49 +23,36 @@ public class RentService {
     private RentMapper rentMapper;
 
     public RentDto createRent(RentDto rentDto) {
-        logger.info("Creating rent: {}", rentDto);
-        Rent rent = rentMapper.toEntity(rentDto);
-        Rent savedRent = rentRepository.save(rent);
-        logger.info("Rent successfully created with id: {}", savedRent.getId());
-        return rentMapper.toDto(savedRent);
+        Rent rent = rentRepository.save(rentMapper.toEntity(rentDto));
+        logger.info("CRATE rent: {}", rent);
+        return rentMapper.toDto(rent);
     }
 
     public RentDto getRentById(Long id) {
-        logger.info("Getting rent with id: {}", id);
         Rent rent = rentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rent not found with id: " + id));
-        RentDto rentDto = rentMapper.toDto(rent);
-        logger.info("Retrieved rent: {}", rentDto);
-        return rentDto;
+        logger.info("GET rent: {}", rent);
+        return rentMapper.toDto(rent);
     }
 
     public List<RentDto> getAllRents() {
-        logger.info("Getting all rents");
         List<Rent> rents = rentRepository.findAll();
-        List<RentDto> rentDtos = rentMapper.toDtoList(rents);
-        logger.info("Retrieved {} rents", rentDtos.size());
-        return rentDtos;
+        logger.info("GET rents: {}", rents.size());
+        return rentMapper.toDtoList(rents);
     }
 
     public RentDto updateRent(Long id, RentDto rentDto) {
-        logger.info("Updating rent with id: {}", id);
         Rent rent = rentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rent not found with id: " + id));
         rentMapper.updateRentFromDto(rentDto, rent);
-        Rent updatedRent = rentRepository.save(rent);
-        RentDto updatedRentDto = rentMapper.toDto(updatedRent);
-        logger.info("Rent updated: {}", updatedRentDto);
-        return updatedRentDto;
+        rent = rentRepository.save(rent);
+        logger.info("UPDATE rent: {}", rent);
+        return rentMapper.toDto(rent);
     }
 
     public void deleteRent(Long id) {
-        logger.info("Deleting rent with id: {}", id);
-        if (rentRepository.existsById(id)) {
-            rentRepository.deleteById(id);
-            logger.info("Rent successfully deleted with id: {}", id);
-        } else {
-            throw new EntityNotFoundException("Rent not found with id: " + id);
-        }
+        rentRepository.deleteById(id);
+        logger.info("DELETE rent: {}", id);
     }
 }
 

@@ -23,50 +23,36 @@ public class LibraryService {
     private LibraryMapper libraryMapper;
 
     public LibraryDto createLibrary(LibraryDto libraryDto) {
-        logger.info("Creating library: {}", libraryDto);
-        Library library = libraryMapper.toEntity(libraryDto);
-        Library createdLibrary = libraryRepository.save(library);
-        LibraryDto createdLibraryDto = libraryMapper.toDto(createdLibrary);
-        logger.info("Library created: {}", createdLibraryDto);
-        return createdLibraryDto;
+        Library library = libraryRepository.save(libraryMapper.toEntity(libraryDto));
+        logger.info("CREATE library: {}", library);
+        return libraryMapper.toDto(library);
     }
 
     public LibraryDto getLibraryById(Long id) {
-        logger.info("Getting library with id: {}", id);
         Library library = libraryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Library not found with id: " + id));
-        LibraryDto libraryDto = libraryMapper.toDto(library);
-        logger.info("Retrieved library: {}", libraryDto);
-        return libraryDto;
+        logger.info("GET library: {}", library);
+        return libraryMapper.toDto(library);
     }
 
     public List<LibraryDto> getAllLibraries() {
-        logger.info("Getting all libraries");
         List<Library> libraries = libraryRepository.findAll();
-        List<LibraryDto> libraryDtos = libraryMapper.toDtoList(libraries);
-        logger.info("Retrieved {} libraries", libraryDtos.size());
-        return libraryDtos;
+        logger.info("GET libraries: {}", libraries.size());
+        return libraryMapper.toDtoList(libraries);
     }
 
     public LibraryDto updateLibrary(Long id, LibraryDto libraryDto) {
-        logger.info("Updating library with id: {}", id);
         Library library = libraryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Library not found with id: " + id));
         libraryMapper.updateLibraryFromDto(libraryDto, library);
-        Library updatedLibrary = libraryRepository.save(library);
-        LibraryDto updatedLibraryDto = libraryMapper.toDto(updatedLibrary);
-        logger.info("Library updated: {}", updatedLibraryDto);
-        return updatedLibraryDto;
+        library = libraryRepository.save(library);
+        logger.info("UPDATE library: {}", library);
+        return libraryMapper.toDto(library);
     }
 
     public void deleteLibrary(Long id) {
-        logger.info("Deleting library with id: {}", id);
-        if (libraryRepository.existsById(id)) {
-            libraryRepository.deleteById(id);
-            logger.info("Library deleted");
-        } else {
-            throw new EntityNotFoundException("Library not found with id: " + id);
-        }
+        libraryRepository.deleteById(id);
+        logger.info("DELETE library: {}", id);
     }
 }
 

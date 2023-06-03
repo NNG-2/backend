@@ -22,47 +22,37 @@ public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public List<CategoryDto> getAllCategories() {
-        logger.info("Getting all categories");
-        List<Category> categories = categoryRepository.findAll();
-        List<CategoryDto> categoryDtos = categoryMapper.toDtoList(categories);
-        logger.info("Retrieved {} categories", categoryDtos.size());
-        return categoryDtos;
+    public CategoryDto createCategory(CategoryDto categoryDto) {
+        Category category = categoryRepository.save(categoryMapper.toEntity(categoryDto));
+        logger.info("CREATE category: {}", category);
+        return categoryMapper.toDto(category);
     }
 
     public CategoryDto getCategoryById(Long id) {
-        logger.info("Getting category with id: {}", id);
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
-        CategoryDto categoryDto = categoryMapper.toDto(category);
-        logger.info("Retrieved category: {}", categoryDto);
-        return categoryDto;
+        logger.info("GET category: {}", category);
+        return categoryMapper.toDto(category);
     }
 
-    public CategoryDto createCategory(CategoryDto categoryDto) {
-        logger.info("Creating category: {}", categoryDto);
-        Category category = categoryMapper.toEntity(categoryDto);
-        Category createdCategory = categoryRepository.save(category);
-        CategoryDto createdCategoryDto = categoryMapper.toDto(createdCategory);
-        logger.info("Category created: {}", createdCategoryDto);
-        return createdCategoryDto;
+    public List<CategoryDto> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        logger.info("GET categories: {}", categories.size());
+        return categoryMapper.toDtoList(categories);
     }
 
     public CategoryDto updateCategory(Long id, CategoryDto categoryDto) {
-        logger.info("Updating category with id: {}", id);
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
         categoryMapper.updateCategoryFromDto(categoryDto, category);
-        Category updatedCategory = categoryRepository.save(category);
-        CategoryDto updatedCategoryDto = categoryMapper.toDto(updatedCategory);
-        logger.info("Category updated: {}", updatedCategoryDto);
-        return updatedCategoryDto;
+        category = categoryRepository.save(category);
+        logger.info("UPDATE category: {}", category);
+        return categoryMapper.toDto(category);
     }
 
     public void deleteCategory(Long id) {
-        logger.info("Deleting category with id: {}", id);
         categoryRepository.deleteById(id);
-        logger.info("Category deleted");
+        logger.info("DELETE category: {}", id);
     }
 }
 
