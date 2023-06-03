@@ -1,6 +1,5 @@
 package org.nng.swdoc.library.domain;
 
-import org.nng.swdoc.library.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,12 +52,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Rent> rents;
 
-    public User(UserDto userDto) {
-        this.name = userDto.getName();
-        this.address = userDto.getAddress();
-        this.phoneNumber = userDto.getPhoneNumber();
-        this.email = userDto.getEmail();
-        this.password = userDto.getPassword();
-        this.balance = 0.0;
-    }
 }

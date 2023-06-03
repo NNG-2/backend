@@ -1,5 +1,6 @@
 package org.nng.swdoc.library.mapper;
 
+import org.mapstruct.MappingTarget;
 import org.nng.swdoc.library.domain.Author;
 import org.nng.swdoc.library.dto.AuthorDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -24,4 +25,8 @@ public interface AuthorMapper {
 
     @InheritInverseConfiguration
     List<Author> toEntityList(List<AuthorDto> dtoList);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "books", ignore = true)
+    void updateAuthorFromDto(AuthorDto dto, @MappingTarget Author entity);
 }

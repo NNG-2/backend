@@ -1,5 +1,6 @@
 package org.nng.swdoc.library.mapper;
 
+import org.mapstruct.MappingTarget;
 import org.nng.swdoc.library.domain.Genre;
 import org.nng.swdoc.library.dto.GenreDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -24,4 +25,8 @@ public interface GenreMapper {
 
     @InheritInverseConfiguration
     List<Genre> toEntityList(List<GenreDto> dtoList);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "books", ignore = true)
+    void updateGenreFromDto(GenreDto dto, @MappingTarget Genre entity);
 }

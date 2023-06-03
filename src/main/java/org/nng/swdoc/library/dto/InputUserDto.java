@@ -1,0 +1,32 @@
+package org.nng.swdoc.library.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class InputUserDto {
+
+    private Long id;
+
+    private String name;
+
+    private String address;
+
+    private String phoneNumber;
+
+    private String email;
+
+    private String password;
+
+    private Double balance;
+
+    private Long categoryId;
+
+    private Long libraryId;
+
+}

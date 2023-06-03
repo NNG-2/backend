@@ -1,5 +1,6 @@
 package org.nng.swdoc.library.mapper;
 
+import org.mapstruct.MappingTarget;
 import org.nng.swdoc.library.domain.Library;
 import org.nng.swdoc.library.dto.LibraryDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -24,4 +25,8 @@ public interface LibraryMapper {
 
     @InheritInverseConfiguration
     List<Library> toEntityList(List<LibraryDto> dtoList);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "balance", ignore = true)
+    void updateLibraryFromDto(LibraryDto dto, @MappingTarget Library entity);
 }

@@ -23,12 +23,12 @@ public class SecurityConfig {
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence rawPassword) {
-                return Encoder.encode(rawPassword.toString());
+                return Encoder.getInstance().encode(rawPassword.toString());
             }
 
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                return encodedPassword.equals(Encoder.encode(rawPassword.toString()));
+                return encodedPassword.equals(Encoder.getInstance().encode(rawPassword.toString()));
             }
         };
     }
@@ -38,7 +38,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests((requests)->
-                        requests.requestMatchers(new AntPathRequestMatcher("/api/registration")).permitAll()
+                        requests.requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
                                 .anyRequest().authenticated())
                 .httpBasic()
                 .and()

@@ -1,5 +1,6 @@
 package org.nng.swdoc.library.mapper;
 
+import org.mapstruct.MappingTarget;
 import org.nng.swdoc.library.domain.Book;
 import org.nng.swdoc.library.dto.BookDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -28,4 +29,8 @@ public interface BookMapper {
 
     @InheritInverseConfiguration
     List<Book> toEntityList(List<BookDto> dtoList);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "rents", ignore = true)
+    void updateBookFromDto(BookDto dto, @MappingTarget Book entity);
 }
