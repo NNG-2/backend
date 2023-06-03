@@ -3,10 +3,39 @@ version: '3.1'
 services:
   db:
     image: postgres:10
+    container_name: db
     restart: always
+    env_file: .env
     environment:
-      POSTGRES_DB: library
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: $DB_NAME
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASS
+    expose:
+      - 5432
     ports:
       - 5432:5432
+
+  app:
+    image: openjdk:17
+    container_name: app
+    restart: always
+    env_file: .env
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+    volumes:
+      - "./target:/usr/app"
+    environment:
+        SPRING_APPLICATION_JSON: '{
+          "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.PostgreSQLDialect",
+          "spring.jpa.hibernate.ddl-auto": "update",
+          "spring.jpa.hibernate.show-sql": "true",
+          "spring.sql.init.mode": "always",
+          "spring.sql.init.continue-on-error": "true",
+          "spring.datasource.initialize": "true",
+          "spring.datasource.url": "jdbc:postgresql://db:5432/$DB_NAME",
+          "spring.datasource.username": "$DB_USER",
+          "spring.datasource.password": "$DB_PASS"
+        }'
+    command: [ 'java', '-jar', '/usr/app/$JAR_NAME' ]
