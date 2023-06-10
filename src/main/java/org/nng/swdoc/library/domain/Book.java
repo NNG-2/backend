@@ -45,6 +45,10 @@ public class Book {
     @JoinColumn(name = "library_id", referencedColumnName = "id")
     private Library library;
 
+    @ManyToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
+
     @OneToMany(mappedBy = "book")
     private List<Rent> rents;
 }
