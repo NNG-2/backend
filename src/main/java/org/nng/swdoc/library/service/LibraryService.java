@@ -28,14 +28,14 @@ public class LibraryService {
         return libraryMapper.toDto(library);
     }
 
-    public LibraryDto getLibraryById(Long id) {
+    public LibraryDto findById(Long id) {
         Library library = libraryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Library not found with id: " + id));
         logger.info("GET library: {}", library);
         return libraryMapper.toDto(library);
     }
 
-    public List<LibraryDto> getAllLibraries() {
+    public List<LibraryDto> findAll() {
         List<Library> libraries = libraryRepository.findAll();
         logger.info("GET libraries: {}", libraries.size());
         return libraryMapper.toDtoList(libraries);

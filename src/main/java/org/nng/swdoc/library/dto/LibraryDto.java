@@ -16,5 +16,7 @@ public class LibraryDto {
 
     private String name;
 
+    private Double balance;
+
     private List<BookDto> books;
 }
