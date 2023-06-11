@@ -25,4 +25,6 @@ public class BookDto {
     private Long genreId;
 
     private Long libraryId;
+
+    private Long imageId;
 }

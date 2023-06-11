@@ -10,13 +10,14 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {AuthorMapper.class, GenreMapper.class, LibraryMapper.class})
+@Mapper(componentModel = "spring", uses = {AuthorMapper.class, GenreMapper.class, LibraryMapper.class, ImageMapper.class})
 public interface BookMapper {
     BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
     @Mapping(source = "author.id", target = "authorId")
     @Mapping(source = "genre.id", target = "genreId")
     @Mapping(source = "library.id", target = "libraryId")
+    @Mapping(source = "image.id", target = "imageId")
     BookDto toDto(Book entity);
 
     @InheritInverseConfiguration
@@ -25,6 +26,7 @@ public interface BookMapper {
     @Mapping(source = "author.id", target = "authorId")
     @Mapping(source = "genre.id", target = "genreId")
     @Mapping(source = "library.id", target = "libraryId")
+    @Mapping(source = "image.id", target = "imageId")
     List<BookDto> toDtoList(List<Book> entities);
 
     @InheritInverseConfiguration
