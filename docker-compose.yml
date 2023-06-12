@@ -10,13 +10,15 @@ services:
       POSTGRES_DB: $DB_NAME
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASS
+    volumes:
+      - ./psql-volume:/var/lib/postgresql
     expose:
       - 5432
     ports:
       - 5432:5432
 
   app:
-    image: openjdk:17
+    image: maven:3.9.2-eclipse-temurin-17
     container_name: app
     restart: always
     env_file: .env
@@ -25,7 +27,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - "./target:/usr/app"
+      - ".:/usr/app"
     environment:
         SPRING_APPLICATION_JSON: '{
           "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.PostgreSQLDialect",
@@ -38,4 +40,4 @@ services:
           "spring.datasource.username": "$DB_USER",
           "spring.datasource.password": "$DB_PASS"
         }'
-    command: [ 'java', '-jar', '/usr/app/$JAR_NAME' ]
+    command: [ 'mvn', '-f', '/usr/app', 'spring-boot:run' ]

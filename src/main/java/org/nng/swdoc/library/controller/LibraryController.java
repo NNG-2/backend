@@ -17,13 +17,13 @@ public class LibraryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<LibraryDto> getLibraryById(@PathVariable Long id) {
-        LibraryDto libraryDto = libraryService.getLibraryById(id);
+        LibraryDto libraryDto = libraryService.findById(id);
         return ResponseEntity.ok(libraryDto);
     }
 
     @GetMapping
     public ResponseEntity<List<LibraryDto>> getAllLibraries() {
-        List<LibraryDto> libraryDtos = libraryService.getAllLibraries();
+        List<LibraryDto> libraryDtos = libraryService.findAll();
         return ResponseEntity.ok(libraryDtos);
     }
 

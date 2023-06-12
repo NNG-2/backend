@@ -28,14 +28,14 @@ public class BookService {
         return bookMapper.toDto(book);
     }
 
-    public BookDto getBookById(Long id) {
+    public BookDto findById(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
         logger.info("GET book: {}", book);
         return bookMapper.toDto(book);
     }
 
-    public List<BookDto> getAllBooks() {
+    public List<BookDto> findAll() {
         List<Book> books = bookRepository.findAll();
         logger.info("GET books: {}", books.size());
         return bookMapper.toDtoList(books);

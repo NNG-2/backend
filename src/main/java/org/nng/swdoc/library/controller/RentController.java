@@ -1,6 +1,8 @@
 package org.nng.swdoc.library.controller;
 
 import org.nng.swdoc.library.dto.RentDto;
+import org.nng.swdoc.library.mangement.RentManger;
+import org.nng.swdoc.library.mangement.RentObservable;
 import org.nng.swdoc.library.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rent")
-public class RentController {
+public class RentController implements RentObservable {
     @Autowired
     private RentService rentService;
+
+    public RentController() {
+        this.addObserver(new RentManger());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<RentDto> getRentById(@PathVariable Long id) {
@@ -30,6 +36,7 @@ public class RentController {
     @PostMapping
     public ResponseEntity<RentDto> createRent(@RequestBody RentDto rentDto) {
         RentDto createdRentDto = rentService.createRent(rentDto);
+        this.sendRent(createdRentDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRentDto);
     }
 
