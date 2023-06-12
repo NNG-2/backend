@@ -8,6 +8,7 @@ import org.nng.swdoc.library.security.Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,11 +39,17 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public void updateUser(Long id, User newUser) {
+        User user = userRepository.findById(newUser.getId())
+                .orElseThrow(() -> new UsernameNotFoundException("No such user"));
+        userRepository.save(user);
     }
 
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("No such user"));
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("No such user"));
     }
 }

@@ -35,6 +35,13 @@ public class CategoryService {
         return categoryMapper.toDto(category);
     }
 
+    public CategoryDto getCategoryByName(String name) {
+        Category category = categoryRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found: " + name));
+        logger.info("GET category: {}", category);
+        return categoryMapper.toDto(category);
+    }
+
     public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
         logger.info("GET categories: {}", categories.size());

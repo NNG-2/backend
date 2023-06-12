@@ -25,6 +25,14 @@ public class Rent {
     @Column(name = "expired_date")
     private LocalDate expiredDate;
 
+    @Basic
+    @Column(name = "is_returned")
+    private Boolean isReturned;
+
+    @Basic
+    @Column(name = "is_damaged")
+    private Boolean isDamaged;
+
     @ManyToOne
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;

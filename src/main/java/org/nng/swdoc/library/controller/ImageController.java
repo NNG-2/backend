@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 public class ImageController {
 
     private static final long MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024;

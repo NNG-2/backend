@@ -5,12 +5,13 @@ import org.nng.swdoc.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/library")
+@RequestMapping("/api/library")
 public class LibraryController {
     @Autowired
     private LibraryService libraryService;
@@ -28,18 +29,21 @@ public class LibraryController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<LibraryDto> createLibrary(@RequestBody LibraryDto libraryDto) {
         LibraryDto createdLibraryDto = libraryService.createLibrary(libraryDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdLibraryDto);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<LibraryDto> updateLibrary(@PathVariable Long id, @RequestBody LibraryDto libraryDto) {
         LibraryDto updatedLibraryDto = libraryService.updateLibrary(id, libraryDto);
         return ResponseEntity.ok(updatedLibraryDto);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteLibrary(@PathVariable Long id) {
         libraryService.deleteLibrary(id);
         return ResponseEntity.noContent().build();
