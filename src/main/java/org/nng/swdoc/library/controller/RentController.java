@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/rent")
+@EnableMethodSecurity(securedEnabled = true)
 public class RentController extends RentObservable {
     @Autowired
     private RentService rentService;
@@ -57,14 +59,14 @@ public class RentController extends RentObservable {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<OutputRentDto> updateRent(@PathVariable Long id, @RequestBody InputRentDto inputRentDto) {
         OutputRentDto rent = rentService.updateRent(id, inputRentDto);
         return ResponseEntity.ok(rent);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteRent(@PathVariable Long id) {
         rentService.deleteRent(id);
         return ResponseEntity.noContent().build();
