@@ -14,13 +14,11 @@ import java.util.List;
 public interface LibraryMapper {
     LibraryMapper INSTANCE = Mappers.getMapper(LibraryMapper.class);
 
-    @Mapping(source = "books", target = "books")
     LibraryDto toDto(Library entity);
 
     @InheritInverseConfiguration
     Library toEntity(LibraryDto dto);
 
-    @Mapping(source = "books", target = "books")
     List<LibraryDto> toDtoList(List<Library> entities);
 
     @InheritInverseConfiguration
