@@ -14,17 +14,11 @@ import java.util.List;
 public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    @Mapping(source = "category.id", target = "categoryId")
-    @Mapping(source = "library.id", target = "libraryId")
     OutputUserDto toDto(User entity);
 
     @InheritInverseConfiguration
-    @Mapping(source = "categoryId", target = "category.id")
-    @Mapping(source = "libraryId", target = "library.id")
     User toEntity(InputUserDto dto);
 
-    @Mapping(source = "category.id", target = "categoryId")
-    @Mapping(source = "library.id", target = "libraryId")
     List<OutputUserDto> toDtoList(List<User> entities);
 
     @InheritInverseConfiguration

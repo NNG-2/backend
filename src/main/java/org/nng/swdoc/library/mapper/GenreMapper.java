@@ -14,13 +14,11 @@ import java.util.List;
 public interface GenreMapper {
     GenreMapper INSTANCE = Mappers.getMapper(GenreMapper.class);
 
-    @Mapping(source = "books", target = "books")
     GenreDto toDto(Genre entity);
 
     @InheritInverseConfiguration
     Genre toEntity(GenreDto dto);
 
-    @Mapping(source = "books", target = "books")
     List<GenreDto> toDtoList(List<Genre> entities);
 
     @InheritInverseConfiguration

@@ -34,7 +34,7 @@ public class BookRentManager implements RentObserver {
 
             var user = userService.findById(rent.getUserId());
             var book = bookService.findById(rent.getBookId());
-            var library = libraryService.findById(book.getLibraryId());
+            var library = libraryService.findById(book.getLibrary().getId());
 
             if (book.getQuantity() < 1) {
                 throw new RuntimeException("Insufficient book quantity");
