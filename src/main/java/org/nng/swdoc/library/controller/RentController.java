@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/rent")
+@CrossOrigin
 @EnableMethodSecurity(securedEnabled = true)
 public class RentController extends RentObservable {
     @Autowired

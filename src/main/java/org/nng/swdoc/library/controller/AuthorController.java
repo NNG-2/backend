@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/author")
+@CrossOrigin
 @EnableMethodSecurity(securedEnabled = true)
 public class AuthorController {
     @Autowired

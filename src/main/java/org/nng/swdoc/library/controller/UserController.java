@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 @EnableMethodSecurity(securedEnabled = true)
 public class UserController {
     @Autowired
@@ -54,5 +55,4 @@ public class UserController {
     public ResponseEntity<OutputUserDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userMapper.toDto(userService.findById(id)));
     }
-
 }

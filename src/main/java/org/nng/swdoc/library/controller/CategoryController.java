@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
+@CrossOrigin
 @EnableMethodSecurity(securedEnabled = true)
 public class CategoryController {
     @Autowired
