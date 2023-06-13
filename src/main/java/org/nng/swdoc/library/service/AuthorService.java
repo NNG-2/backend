@@ -25,14 +25,14 @@ public class AuthorService {
 
     public AuthorDto createAuthor(AuthorDto authorDto) {
         Author author = authorRepository.save(authorMapper.toEntity(authorDto));
-        logger.info("CREATE author: {}", author);
+        logger.info("CREATE author: {}", authorDto);
         return authorMapper.toDto(author);
     }
 
     public AuthorDto getAuthorById(Long id) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Author not found with id: " + id));
-        logger.info("GET author: {}", author);
+        logger.info("GET author: {}", authorMapper.toDto(author));
         return authorMapper.toDto(author);
     }
 
@@ -47,7 +47,7 @@ public class AuthorService {
                 .orElseThrow(() -> new EntityNotFoundException("Author not found with id: " + id));
         authorMapper.updateAuthorFromDto(authorDto, author);
         author = authorRepository.save(author);
-        logger.info("UPDATE author: {}", author);
+        logger.info("UPDATE author: {}", authorDto);
         return authorMapper.toDto(author);
     }
 

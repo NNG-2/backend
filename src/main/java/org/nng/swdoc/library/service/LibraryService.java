@@ -24,14 +24,14 @@ public class LibraryService {
 
     public LibraryDto createLibrary(LibraryDto libraryDto) {
         Library library = libraryRepository.save(libraryMapper.toEntity(libraryDto));
-        logger.info("CREATE library: {}", library);
+        logger.info("CREATE library: {}", libraryDto);
         return libraryMapper.toDto(library);
     }
 
     public LibraryDto findById(Long id) {
         Library library = libraryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Library not found with id: " + id));
-        logger.info("GET library: {}", library);
+        logger.info("GET library: {}", libraryMapper.toDto(library));
         return libraryMapper.toDto(library);
     }
 
@@ -46,7 +46,7 @@ public class LibraryService {
                 .orElseThrow(() -> new EntityNotFoundException("Library not found with id: " + id));
         libraryMapper.updateLibraryFromDto(libraryDto, library);
         library = libraryRepository.save(library);
-        logger.info("UPDATE library: {}", library);
+        logger.info("UPDATE library: {}", libraryDto);
         return libraryMapper.toDto(library);
     }
 

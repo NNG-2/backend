@@ -24,14 +24,14 @@ public class BookService {
 
     public BookDto createBook(BookDto bookDto) {
         Book book = bookRepository.save(bookMapper.toEntity(bookDto));
-        logger.info("CRATE book: {}", book);
+        logger.info("CRATE book: {}", bookDto);
         return bookMapper.toDto(book);
     }
 
     public BookDto findById(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        logger.info("GET book: {}", book);
+        logger.info("GET book: {}", bookMapper.toDto(book));
         return bookMapper.toDto(book);
     }
 
@@ -46,7 +46,7 @@ public class BookService {
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
         bookMapper.updateBookFromDto(bookDto, book);
         book = bookRepository.save(book);
-        logger.info("UPDATE book: {}", book);
+        logger.info("UPDATE book: {}", bookDto);
         return bookMapper.toDto(book);
     }
 

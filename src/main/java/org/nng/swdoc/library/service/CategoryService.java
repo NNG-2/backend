@@ -24,21 +24,21 @@ public class CategoryService {
 
     public CategoryDto createCategory(CategoryDto categoryDto) {
         Category category = categoryRepository.save(categoryMapper.toEntity(categoryDto));
-        logger.info("CREATE category: {}", category);
+        logger.info("CREATE category: {}", categoryDto);
         return categoryMapper.toDto(category);
     }
 
     public CategoryDto getCategoryById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
-        logger.info("GET category: {}", category);
+        logger.info("GET category: {}", categoryMapper.toDto(category));
         return categoryMapper.toDto(category);
     }
 
     public CategoryDto getCategoryByName(String name) {
         Category category = categoryRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found: " + name));
-        logger.info("GET category: {}", category);
+        logger.info("GET category: {}", categoryMapper.toDto(category));
         return categoryMapper.toDto(category);
     }
 
@@ -53,7 +53,7 @@ public class CategoryService {
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
         categoryMapper.updateCategoryFromDto(categoryDto, category);
         category = categoryRepository.save(category);
-        logger.info("UPDATE category: {}", category);
+        logger.info("UPDATE category: {}", categoryDto);
         return categoryMapper.toDto(category);
     }
 
