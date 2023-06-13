@@ -38,4 +38,4 @@ mvnw
 mvnw.cmd
 
 ### Project Specific ###
-psql-volume
+volumes

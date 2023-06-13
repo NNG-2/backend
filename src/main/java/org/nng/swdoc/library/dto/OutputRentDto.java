@@ -10,13 +10,17 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RentDto {
+public class OutputRentDto {
 
     private Long id;
 
     private LocalDate issueDate;
 
     private LocalDate expiredDate;
+
+    private Boolean isReturned;
+
+    private Boolean isDamaged;
 
     private Long bookId;
 

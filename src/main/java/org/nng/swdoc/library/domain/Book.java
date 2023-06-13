@@ -18,12 +18,12 @@ public class Book {
     private Long id;
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
     @Basic
     @Column(name = "quantity")
-    private Double quantity;
+    private Integer quantity;
 
     @Basic
     @Column(name = "collateral_cost")

@@ -26,11 +26,11 @@ public class User {
     private String address;
 
     @Basic
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Basic
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Basic

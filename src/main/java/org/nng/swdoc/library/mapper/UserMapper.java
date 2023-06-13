@@ -19,6 +19,8 @@ public interface UserMapper {
     OutputUserDto toDto(User entity);
 
     @InheritInverseConfiguration
+    @Mapping(source = "categoryId", target = "category.id")
+    @Mapping(source = "libraryId", target = "library.id")
     User toEntity(InputUserDto dto);
 
     @Mapping(source = "category.id", target = "categoryId")

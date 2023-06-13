@@ -1,25 +1,35 @@
 package org.nng.swdoc.library.mangement;
 
-import org.nng.swdoc.library.domain.Rent;
-import org.nng.swdoc.library.dto.RentDto;
+import org.nng.swdoc.library.dto.OutputRentDto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public interface RentObservable {
-    List<RentObserver> observers = new ArrayList<RentObserver>();
-
-    default void addObserver(RentObserver observer) {
-        observers.add(observer);
+public class RentObservable {
+    public enum Event {
+        BOOK_RENTED,
+        BOOK_RETURNED
     }
 
-    default void removeObserver(RentObserver observer) {
-        observers.remove(observer);
-    }
+    Map<Event, List<RentObserver>> observers = new HashMap<>();
 
-    default void sendRent(RentDto rent) {
-        for (RentObserver observer : observers) {
-            observer.updateRent(rent);
+    public RentObservable() {
+        for (Event event : Event.values()) {
+            observers.put(event, new ArrayList<>());
         }
+    }
+
+    public void addRentEventListener(Event event, RentObserver observer) {
+        observers.get(event).add(observer);
+    }
+
+    public boolean notifyRentEventChange(Event event, OutputRentDto rent) {
+        boolean result = true;
+        for (RentObserver observer : observers.get(event)) {
+            result &= observer.onRentEventChange(rent);
+        }
+        return result;
     }
 }

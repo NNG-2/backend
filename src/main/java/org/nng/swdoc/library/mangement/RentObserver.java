@@ -1,7 +1,7 @@
 package org.nng.swdoc.library.mangement;
 
-import org.nng.swdoc.library.dto.RentDto;
+import org.nng.swdoc.library.dto.OutputRentDto;
 
 public interface RentObserver {
-    void updateRent(RentDto rent);
+    boolean onRentEventChange(OutputRentDto rent);
 }
