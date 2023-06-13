@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASS
     volumes:
-      - ./psql-data:/var/lib/postgresql
+      - "./volumes/psql:/var/lib/postgresql"
     expose:
       - 5432
     ports:
@@ -27,11 +27,12 @@ services:
     ports:
       - 8080:8080
     volumes:
+      - "./volumes/m2:/root/.m2"
       - ".:/usr/app"
-      - "./m2:/root/.m2"
     environment:
         SPRING_APPLICATION_JSON: '{
           "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.PostgreSQLDialect",
+          "spring.jpa.defer-datasource-initialization": "true",
           "spring.jpa.hibernate.ddl-auto": "update",
           "spring.jpa.hibernate.show-sql": "true",
           "spring.sql.init.mode": "always",
