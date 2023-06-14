@@ -25,14 +25,14 @@ public class RentService {
 
     public OutputRentDto createRent(InputRentDto inputRentDto) {
         Rent rent = rentRepository.save(rentMapper.toEntity(inputRentDto));
-        logger.info("CRATE rent: {}", inputRentDto);
+        logger.info("CRATE rent: {}", rent);
         return rentMapper.toDto(rent);
     }
 
     public OutputRentDto getRentById(Long id) {
         Rent rent = rentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Rent not found with id: " + id));
-        logger.info("GET rent: {}", rentMapper.toDto(rent));
+        logger.info("GET rent: {}", rent);
         return rentMapper.toDto(rent);
     }
 
@@ -47,7 +47,7 @@ public class RentService {
                 .orElseThrow(() -> new EntityNotFoundException("Rent not found with id: " + id));
         rentMapper.updateRentFromDto(inputRentDto, rent);
         rent = rentRepository.save(rent);
-        logger.info("UPDATE rent: {}", inputRentDto);
+        logger.info("UPDATE rent: {}", rent);
         return rentMapper.toDto(rent);
     }
 
@@ -56,7 +56,7 @@ public class RentService {
                 .orElseThrow(() -> new EntityNotFoundException("Rent not found with id: " + id));
         rentMapper.updateRentFromDto(outputRentDto, rent);
         rent = rentRepository.save(rent);
-        logger.info("UPDATE rent: {}", outputRentDto);
+        logger.info("UPDATE rent: {}", rent);
         return rentMapper.toDto(rent);
     }
 

@@ -24,14 +24,14 @@ public class GenreService {
 
     public GenreDto createGenre(GenreDto genreDto) {
         Genre genre = genreRepository.save(genreMapper.toEntity(genreDto));
-        logger.info("CREATE genre: {}", genreDto);
+        logger.info("CREATE genre: {}", genre);
         return genreMapper.toDto(genre);
     }
 
     public GenreDto getGenreById(Long id) {
         Genre genre = genreRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Genre not found with id: " + id));
-        logger.info("GET genre: {}", genreMapper.toDto(genre));
+        logger.info("GET genre: {}", genre);
         return genreMapper.toDto(genre);
     }
 
@@ -46,7 +46,7 @@ public class GenreService {
                 .orElseThrow(() -> new EntityNotFoundException("Genre not found with id: " + id));
         genreMapper.updateGenreFromDto(genreDto, genre);
         genre = genreRepository.save(genre);
-        logger.info("UPDATE genre: {}", genreDto);
+        logger.info("UPDATE genre: {}", genre);
         return genreMapper.toDto(genre);
     }
 

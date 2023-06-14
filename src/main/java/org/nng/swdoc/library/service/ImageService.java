@@ -24,14 +24,14 @@ public class ImageService {
 
     public ImageDto createImage(ImageDto imageDto) {
         Image image = imageRepository.save(imageMapper.toEntity(imageDto));
-        logger.info("CREATE Image: {}", imageDto);
+        logger.info("CREATE Image: {}", image);
         return imageMapper.toDto(image);
     }
 
     public ImageDto getImageById(Long id) {
         Image image = imageRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Image not found with id: " + id));
-        logger.info("GET Image: {}", imageMapper.toDto(image));
+        logger.info("GET Image: {}", image);
         return imageMapper.toDto(image);
     }
 
@@ -46,7 +46,7 @@ public class ImageService {
                 .orElseThrow(() -> new EntityNotFoundException("Image not found with id: " + id));
         imageMapper.updateImageFromDto(imageDto, image);
         image = imageRepository.save(image);
-        logger.info("UPDATE Image: {}", imageDto);
+        logger.info("UPDATE Image: {}", image);
         return imageMapper.toDto(image);
     }
 
