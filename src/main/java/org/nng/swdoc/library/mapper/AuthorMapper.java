@@ -14,11 +14,13 @@ import java.util.List;
 public interface AuthorMapper {
     AuthorMapper INSTANCE = Mappers.getMapper(AuthorMapper.class);
 
+    @Mapping(source = "books", target = "books")
     AuthorDto toDto(Author entity);
 
     @InheritInverseConfiguration
     Author toEntity(AuthorDto dto);
 
+    @Mapping(source = "books", target = "books")
     List<AuthorDto> toDtoList(List<Author> entities);
 
     @InheritInverseConfiguration

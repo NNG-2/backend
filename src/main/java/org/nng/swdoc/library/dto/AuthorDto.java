@@ -18,4 +18,5 @@ public class AuthorDto {
 
     private String surname;
 
+    private List<BookDto> books;
 }

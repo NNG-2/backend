@@ -14,12 +14,18 @@ import java.util.List;
 public interface BookMapper {
     BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
+    @Mapping(source = "author.id", target = "authorId")
+    @Mapping(source = "genre.id", target = "genreId")
+    @Mapping(source = "library.id", target = "libraryId")
     @Mapping(source = "image.id", target = "imageId")
     BookDto toDto(Book entity);
 
     @InheritInverseConfiguration
     Book toEntity(BookDto dto);
 
+    @Mapping(source = "author.id", target = "authorId")
+    @Mapping(source = "genre.id", target = "genreId")
+    @Mapping(source = "library.id", target = "libraryId")
     @Mapping(source = "image.id", target = "imageId")
     List<BookDto> toDtoList(List<Book> entities);
 

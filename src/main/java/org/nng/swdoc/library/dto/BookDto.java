@@ -20,11 +20,11 @@ public class BookDto {
 
     private Double rentalCost;
 
-    private AuthorDto author;
+    private Long authorId;
 
-    private GenreDto genre;
+    private Long genreId;
 
-    private LibraryDto library;
+    private Long libraryId;
 
     private Long imageId;
 }

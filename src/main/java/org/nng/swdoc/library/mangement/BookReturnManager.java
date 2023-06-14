@@ -40,7 +40,7 @@ public class BookReturnManager implements RentObserver {
 
             var user = userService.findById(rent.getUserId());
             var book = bookService.findById(rent.getBookId());
-            var library = libraryService.findById(book.getLibrary().getId());
+            var library = libraryService.findById(book.getLibraryId());
 
             book.setQuantity(book.getQuantity() + 1);
             rent.setIsReturned(true);

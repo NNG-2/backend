@@ -18,4 +18,5 @@ public class LibraryDto {
 
     private Double balance;
 
+    private List<BookDto> books;
 }
