@@ -40,6 +40,8 @@ services:
           "spring.datasource.initialize": "true",
           "spring.datasource.url": "jdbc:postgresql://db:5432/$DB_NAME",
           "spring.datasource.username": "$DB_USER",
-          "spring.datasource.password": "$DB_PASS"
+          "spring.datasource.password": "$DB_PASS",
+          "spring.servlet.multipart.max-file-size": "100MB",
+          "spring.servlet.multipart.max-request-size": "100MB"
         }'
     command: [ 'mvn', '-f', '/usr/app', 'spring-boot:run' ]
