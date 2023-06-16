@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rented Books</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+</head>
+<body>
+    <div th:insert="fragments/general.html :: navbar"></div>
+
+    <div class="container">
+        <h1 class="text-center my-4">My rent books</h1>
+
+        <!-- Search form -->
+        <form th:action="@{/rented_books}" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search by name" th:value="${search}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <!-- Error message -->
+        <div th:if="${#lists.isEmpty(rents)}" class="alert alert-danger" role="alert">
+            No rented books found.
+        </div>
+
+        <div class="row">
+            <div th:each="rent : ${rents}" class="col-md-4 mb-4">
+                <div class="card">
+                    <img th:src="${'http://localhost:8080/api/image/' + rent.book.image.id}" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${rent.book.title}">Book Name</h5>
+                        <p class="card-text">
+                            <span th:text="'Author: ' + ${rent.book.author.name} + ' ' + ${rent.book.author.surname}"></span><br>
+                            <span th:text="'Count: ' + ${rent.book.quantity}"></span><br>
+                            <span th:text="'Library Name: ' + ${rent.book.library.name}"></span><br>
+                            <span th:text="'Rent Cost: $' + ${rent.book.rentalCost}"></span><br>
+                            <span th:text="'Collateral Cost: $' + ${rent.book.collateralCost}"></span><br>
+                            <span th:text="'Genre: ' + ${rent.book.genre.name}"></span>
+                        </p>
+                        <p th:if="${rent.isReturned}" class="alert alert-success">Book is returned!</p>
+                        <form th:if="${!rent.isReturned}" th:action="@{/return_book/{bookId}(bookId=${rent.book.id})}" method="post">
+                            <div class="mb-3 form-check" bis_skin_checked="1">
+                                <input type="checkbox" class="form-check-input" th:value="*{isDamaged}" id="isDamagedCheck">
+                                <label class="form-check-label" for="isDamagedCheck">Is Damaged</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Return Book</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+</head>
+<body>
+    <div th:insert="fragments/general.html :: navbar"></div>
+
+    <div class="container">
+        <h1 class="text-center my-4">Home</h1>
+
+        <!-- Search form -->
+        <form th:action="@{/home}" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search by name" th:value="${search}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        <!-- Error messages -->
+        <div th:if="${#lists.isEmpty(books)}" class="alert alert-danger" role="alert">
+            No books found.
+        </div>
+
+        <div th:if="${param.error}" th:text="${param.error}" class="alert alert-danger"></div>
+
+        <div class="row">
+            <div th:each="book : ${books}" class="col-md-4 mb-4">
+                <div class="card">
+                    <img th:src="${'http://localhost:8080/api/image/' + book.image.id}" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${book.title}">Book Name</h5>
+                        <p class="card-text">
+                            <span th:text="'Author: ' + ${book.author.name} + ' ' + ${book.author.surname}"></span><br>
+                            <span th:text="'Count: ' + ${book.quantity}"></span><br>
+                            <span th:text="'Library Name: ' + ${book.library.name}"></span><br>
+                            <span th:text="'Rent Cost: $' + ${book.rentalCost}"></span><br>
+                            <span th:text="'Collateral Cost: $' + ${book.collateralCost}"></span><br>
+                            <span th:text="'Genre: ' + ${book.genre.name}"></span>
+                        </p>
+                        <p th:if="${book.quantity == 0}" class="alert alert-danger">Out of stock</p>
+                        <form th:if="${book.quantity != 0}" th:action="@{/rent/{bookId}(bookId=${book.id})}" method="post">
+                            <button type="submit" class="btn btn-primary">Rent Book</button>
+                        </form>
+                    </div>
+                </div>
+			</div>
+        </div>
+    </div>
+</body>
+</html>
