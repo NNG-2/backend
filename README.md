@@ -8,13 +8,11 @@
 System for managing libraries/readers/books etc.  
 
 ## Prerequisites
- - `java` (version 17)
  - `docker`
  - `docker-compose`
 
 ## How to run
 ```shell
-$ mvn compile package
 $ docker-compose up -d
 ```
 
