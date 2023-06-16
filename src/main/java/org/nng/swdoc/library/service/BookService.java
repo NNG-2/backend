@@ -2,8 +2,6 @@ package org.nng.swdoc.library.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.nng.swdoc.library.domain.Book;
-import org.nng.swdoc.library.dto.BookDto;
-import org.nng.swdoc.library.mapper.BookMapper;
 import org.nng.swdoc.library.repository.BookRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,34 +18,41 @@ public class BookService {
     private BookRepository bookRepository;
 
     @Autowired
-    private BookMapper bookMapper;
+    private AuthorService authorService;
 
-    public BookDto createBook(BookDto bookDto) {
-        Book book = bookRepository.save(bookMapper.toEntity(bookDto));
-        logger.info("CRATE book: {}", book);
-        return bookMapper.toDto(book);
+    @Autowired
+    private GenreService genreService;
+
+    @Autowired
+    private LibraryService libraryService;
+
+
+    public Book createBook(Book newBook) {
+        Book book = bookRepository.save(newBook);
+        logger.info("CRATE book: {}", book.getId());
+        return book;
     }
 
-    public BookDto findById(Long id) {
+    public Book findById(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        logger.info("GET book: {}", book);
-        return bookMapper.toDto(book);
+        logger.info("GET book: {}", book.getId());
+        return book;
     }
 
-    public List<BookDto> findAll() {
+    public List<Book> findAll() {
         List<Book> books = bookRepository.findAll();
         logger.info("GET books: {}", books.size());
-        return bookMapper.toDtoList(books);
+        return books;
     }
 
-    public BookDto updateBook(Long id, BookDto bookDto) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
-        bookMapper.updateBookFromDto(bookDto, book);
-        book = bookRepository.save(book);
-        logger.info("UPDATE book: {}", book);
-        return bookMapper.toDto(book);
+    public Book updateBook(Book newBook) {
+        Book book = bookRepository.findById(newBook.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + newBook.getId()));
+        newBook.setId(book.getId());
+        book = bookRepository.save(newBook);
+        logger.info("UPDATE book: {}", book.getId());
+        return book;
     }
 
     public void deleteBook(Long id) {

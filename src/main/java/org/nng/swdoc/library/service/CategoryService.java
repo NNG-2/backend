@@ -2,8 +2,6 @@ package org.nng.swdoc.library.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.nng.swdoc.library.domain.Category;
-import org.nng.swdoc.library.dto.CategoryDto;
-import org.nng.swdoc.library.mapper.CategoryMapper;
 import org.nng.swdoc.library.repository.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,47 +17,30 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private CategoryMapper categoryMapper;
-
-    public CategoryDto createCategory(CategoryDto categoryDto) {
-        Category category = categoryRepository.save(categoryMapper.toEntity(categoryDto));
+    public Category createCategory(Category newCategory) {
+        Category category = categoryRepository.save(newCategory);
         logger.info("CREATE category: {}", category);
-        return categoryMapper.toDto(category);
+        return category;
     }
 
-    public CategoryDto getCategoryById(Long id) {
+    public Category findById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
         logger.info("GET category: {}", category);
-        return categoryMapper.toDto(category);
+        return category;
     }
 
-    public CategoryDto getCategoryByName(String name) {
+    public Category findByName(String name) {
         Category category = categoryRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Category not found: " + name));
         logger.info("GET category: {}", category);
-        return categoryMapper.toDto(category);
+        return category;
     }
 
-    public List<CategoryDto> getAllCategories() {
+    public List<Category> findAll() {
         List<Category> categories = categoryRepository.findAll();
         logger.info("GET categories: {}", categories.size());
-        return categoryMapper.toDtoList(categories);
-    }
-
-    public CategoryDto updateCategory(Long id, CategoryDto categoryDto) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + id));
-        categoryMapper.updateCategoryFromDto(categoryDto, category);
-        category = categoryRepository.save(category);
-        logger.info("UPDATE category: {}", category);
-        return categoryMapper.toDto(category);
-    }
-
-    public void deleteCategory(Long id) {
-        categoryRepository.deleteById(id);
-        logger.info("DELETE category: {}", id);
+        return categories;
     }
 }
 

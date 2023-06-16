@@ -1,8 +1,7 @@
 package org.nng.swdoc.library.service;
 
 import org.nng.swdoc.library.domain.User;
-import org.nng.swdoc.library.dto.InputUserDto;
-import org.nng.swdoc.library.mapper.UserMapper;
+import org.nng.swdoc.library.dto.UserDto;
 import org.nng.swdoc.library.repository.UserRepository;
 import org.nng.swdoc.library.security.Encoder;
 import org.slf4j.Logger;
@@ -11,24 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserMapper userMapper;
 
-    public User createUser(InputUserDto inputUserDto) {
+    public User createUser(User newUser) {
         try {
-            User user = userMapper.toEntity(inputUserDto);
-            System.out.println(user.toString());
-            user.setPassword(Encoder.getInstance().encode(user.getPassword()));
+            System.out.println(newUser.toString());
+            newUser.setPassword(Encoder.getInstance().encode(newUser.getPassword()));
             logger.info("User successfully registered");
-            return userRepository.save(user);
+            return userRepository.save(newUser);
         } catch (Exception e) {
             logger.error("Error creating user: " + e.getMessage());
             throw new RuntimeException("Error creating user", e);
@@ -39,7 +33,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateUser(Long id, User newUser) {
+    public void updateUser(User newUser) {
         User user = userRepository.findById(newUser.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("No such user"));
         userRepository.save(user);
