@@ -2,8 +2,6 @@ package org.nng.swdoc.library.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.nng.swdoc.library.domain.Genre;
-import org.nng.swdoc.library.dto.GenreDto;
-import org.nng.swdoc.library.mapper.GenreMapper;
 import org.nng.swdoc.library.repository.GenreRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,39 +17,22 @@ public class GenreService {
     @Autowired
     private GenreRepository genreRepository;
 
-    @Autowired
-    private GenreMapper genreMapper;
-
-    public GenreDto createGenre(GenreDto genreDto) {
-        Genre genre = genreRepository.save(genreMapper.toEntity(genreDto));
-        logger.info("CREATE genre: {}", genreDto);
-        return genreMapper.toDto(genre);
+    public Genre createGenre(Genre newGenre) {
+        Genre genre = genreRepository.save(newGenre);
+        logger.info("CREATE genre: {}", genre.getId());
+        return genre;
     }
 
-    public GenreDto getGenreById(Long id) {
+    public Genre findById(Long id) {
         Genre genre = genreRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Genre not found with id: " + id));
-        logger.info("GET genre: {}", genreMapper.toDto(genre));
-        return genreMapper.toDto(genre);
+        logger.info("GET genre: {}", genre.getId());
+        return genre;
     }
 
-    public List<GenreDto> getAllGenres() {
+    public List<Genre> findAll() {
         List<Genre> genres = genreRepository.findAll();
         logger.info("GET genres: {}", genres.size());
-        return genreMapper.toDtoList(genres);
-    }
-
-    public GenreDto updateGenre(Long id, GenreDto genreDto) {
-        Genre genre = genreRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Genre not found with id: " + id));
-        genreMapper.updateGenreFromDto(genreDto, genre);
-        genre = genreRepository.save(genre);
-        logger.info("UPDATE genre: {}", genreDto);
-        return genreMapper.toDto(genre);
-    }
-
-    public void deleteGenre(Long id) {
-        genreRepository.deleteById(id);
-        logger.info("DELETE genre: {}", id);
+        return genres;
     }
 }

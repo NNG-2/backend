@@ -2,6 +2,7 @@ package org.nng.swdoc.library.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "library")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Library {
@@ -23,10 +25,4 @@ public class Library {
     @Basic
     @Column(name = "balance")
     private Double balance;
-
-    @OneToMany(mappedBy = "library")
-    private List<Book> books;
-
-    @OneToMany(mappedBy = "library")
-    private List<User> users;
 }

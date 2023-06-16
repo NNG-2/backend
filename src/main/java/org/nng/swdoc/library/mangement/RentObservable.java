@@ -1,6 +1,6 @@
 package org.nng.swdoc.library.mangement;
 
-import org.nng.swdoc.library.dto.OutputRentDto;
+import org.nng.swdoc.library.domain.Rent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,10 +25,10 @@ public class RentObservable {
         observers.get(event).add(observer);
     }
 
-    public boolean notifyRentEventChange(Event event, OutputRentDto rent) {
+    public boolean notifyRentEventChange(Context ctx, Event event, Rent rent) {
         boolean result = true;
         for (RentObserver observer : observers.get(event)) {
-            result &= observer.onRentEventChange(rent);
+            result &= observer.onRentEventChange(ctx, rent);
         }
         return result;
     }

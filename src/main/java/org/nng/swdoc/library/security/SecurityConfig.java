@@ -37,12 +37,33 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests((requests)->
-                        requests.requestMatchers(new AntPathRequestMatcher("/api/register")).permitAll()
+                .authorizeRequests((requests) ->
+                        requests
+                                .requestMatchers(new AntPathRequestMatcher("/login")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/register")).permitAll()
                                 .anyRequest().authenticated())
                 .httpBasic()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/home")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
+
+
+//        http.authorizeRequests()
+//                .antMatchers("/login").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessURL("/home")
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/login");
         return http.build();
     }
 

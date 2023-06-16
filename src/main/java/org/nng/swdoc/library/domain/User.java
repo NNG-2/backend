@@ -2,6 +2,7 @@ package org.nng.swdoc.library.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
@@ -48,8 +50,4 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "library_id", referencedColumnName = "id")
     private Library library;
-
-    @OneToMany(mappedBy = "user")
-    private List<Rent> rents;
-
 }

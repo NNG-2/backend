@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Library</title>
+    <th:block th:include="fragments/general.html :: headerfiles"></th:block>
+</head>
+<body>
+    <div th:insert="fragments/general.html :: navbar"></div>
+    <div class="container">
+        <h1 class="text-center my-4">Add Library</h1>
+        <form th:action="@{/add_library}" th:object="${library}" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Library name</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter library name" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="balance" class="form-label">Library balance</label>
+                <input type="number" min=1 value=1 class="form-control" id="balance" th:field="*{balance}" placeholder="Enter library balance" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Library</button>
+        </form>
+    </div>
+</body>
+</html>
