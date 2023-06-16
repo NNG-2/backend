@@ -2,6 +2,7 @@ package org.nng.swdoc.library.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "book")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
@@ -48,7 +50,4 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "image_id", referencedColumnName = "id")
     private Image image;
-
-    @OneToMany(mappedBy = "book")
-    private List<Rent> rents;
 }

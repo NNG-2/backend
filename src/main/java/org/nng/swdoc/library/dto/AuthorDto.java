@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.nng.swdoc.library.domain.Author;
+
 import java.util.List;
 
 @Data
@@ -11,12 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class AuthorDto {
-
-    private Long id;
-
     private String name;
-
     private String surname;
 
-    private List<BookDto> books;
+    public Author toEntity() {
+        return Author.builder()
+              .name(name)
+              .surname(surname)
+              .build();
+    }
 }
